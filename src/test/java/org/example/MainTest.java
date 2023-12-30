@@ -24,10 +24,24 @@ class MainTest {
 
     @Test
     void filterGreenApple() {
-        List<Apple> result = filterApples(inventory, (a) -> a.getColor() == GREEN);
+        List<Apple> result = filterApples(inventory, (a) -> GREEN.equals(a.getColor()));
 
         System.out.println(result.toString());
         assertThat(result).contains(inventory.get(2), inventory.get(4));
+    }
+
+    @Test
+    void sortApplesByWeight() {
+        List<Apple> result = new ArrayList<>(inventory);
+        result.sort((a1, a2) -> a1.getWeight().compareTo(a2.getWeight()));
+
+        System.out.println(result);
+        assertThat(result).usingElementComparatorOnFields("weight");
+    }
+
+    @Test
+    void enumTest() {
+
     }
 
     public static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
