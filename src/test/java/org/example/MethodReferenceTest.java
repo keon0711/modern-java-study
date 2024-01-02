@@ -6,12 +6,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.example.Color.GREEN;
+import static org.example.Color.RED;
 
 public class MethodReferenceTest {
     @Test
@@ -48,5 +51,21 @@ public class MethodReferenceTest {
 
         List<Integer> integers = str.stream().map(stringToInteger).collect(Collectors.toList());
         assertThat(integers).containsExactly(123, 2, 3);
+    }
+
+    @Test
+    void sortByMethodReference() {
+        List<Apple> inventory = new ArrayList<>(List.of(
+                new Apple(10, RED),
+                new Apple(15, RED),
+                new Apple(7, GREEN),
+                new Apple(2, RED),
+                new Apple(1, GREEN),
+                new Apple(23, RED)
+        ));
+
+        inventory.sort(Comparator.comparing(Apple::getWeight));
+        System.out.println(inventory);
+        assertThat(inventory).usingElementComparatorOnFields("weight");
     }
 }

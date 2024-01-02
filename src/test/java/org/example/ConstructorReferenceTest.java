@@ -4,12 +4,15 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.example.Color.GREEN;
+import static org.example.Color.RED;
 
 public class ConstructorReferenceTest {
     @Test
@@ -43,7 +46,8 @@ public class ConstructorReferenceTest {
     @Test
     void constructApplesByWeight2() {
         List<Integer> weights = List.of(7, 3, 4, 10);
-        List<Apple> apples = weights.stream().map(Apple::new).collect(Collectors.toList());
+        List<Apple> apples =
+                weights.stream().map(Apple::new).collect(Collectors.toList());
 
         assertThat(apples).containsExactly(
                 new Apple(7),
